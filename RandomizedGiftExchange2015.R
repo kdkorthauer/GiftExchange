@@ -14,11 +14,12 @@ GifterMat <- matrix(1, nrow=length(Gifters), ncol=length(Gifters))
 rownames(GifterMat) <- colnames(GifterMat) <- Gifters
 
 # Don't allow for people in a relationship to shop for each other
-for(j in 1:nrow(relationships)){
-  GifterMat[rownames(GifterMat) %in%  relationships[j,],
+if (nrow(relationships) > 0){
+  for(j in 1:nrow(relationships)){
+    GifterMat[rownames(GifterMat) %in%  relationships[j,],
             colnames(GifterMat) %in%  relationships[j,]] <- 0
+  }
 }
-
 # Don't allow people to shop for themselves
 diag(GifterMat) <- 0
 
